@@ -1,18 +1,36 @@
 <template>
-  <hello-world />
+  <ToolbarComponent />
+
+  <SidebarComponent />
+
+  <v-main>
+    <v-container fluid>
+      <HeaderComponent />
+
+      <!-- Search field for table -->
+      <SearchComponent />
+      
+      <DataTableComponent />
+    </v-container>
+  </v-main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
-// Components
-import HelloWorld from '../components/HelloWorld.vue';
+import ToolbarComponent from '../components/Toolbar/ToolbarComp.vue'
+import SidebarComponent from '../components/Sidebar/SidebarComp.vue'
+import HeaderComponent from '../components/Header/HeaderComp.vue'
+import DataTableComponent from '../components/DataTable/DataTableComp.vue'
+import SearchComponent from '../components/Search/SearchComp.vue'
 
 export default defineComponent({
   name: 'HomeView',
-
   components: {
-    HelloWorld,
-  },
+    ToolbarComponent,
+    SidebarComponent,
+    HeaderComponent,
+    DataTableComponent,
+    SearchComponent
+  }
 });
 </script>

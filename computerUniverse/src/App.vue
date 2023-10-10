@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-main>
+    <v-layout ref="app">
       <router-view/>
-    </v-main>
+  </v-layout>
   </v-app>
 </template>
 
@@ -11,11 +11,5 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'App',
-
-  data () {
-    return {
-      //
-    }
-  },
 })
 </script>

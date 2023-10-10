@@ -1,10 +1,22 @@
-// Styles
+// STYLES
+// FontAwesome
+import '@fortawesome/fontawesome-free/css/all.css'
+
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
+import {
+  VDataTable,
+  VDataTableServer,
+  VDataTableVirtual,
+} from "vuetify/labs/VDataTable";
 
-// Vuetify
+// VUETIFY
 import { createVuetify } from 'vuetify'
 
-export default createVuetify(
-  // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
-)
+export default createVuetify({
+  components: {
+    VDataTable,
+    VDataTableServer,
+    VDataTableVirtual,
+  },
+})
