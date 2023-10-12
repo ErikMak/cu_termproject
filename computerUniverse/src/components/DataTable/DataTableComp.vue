@@ -5,14 +5,21 @@
         :items="desserts"
         class="elevation-1"
       >
-
+      
         <template v-slot:item.actions="{ item }">
-          <v-icon size="small" class="me-2">
-            mdi-pencil
-          </v-icon>
-          <v-icon size="small">
-            mdi-delete
-          </v-icon>
+          <v-btn 
+            icon="mdi-pencil" 
+            class="me-2" 
+            size="x-small" 
+            variant="plain"
+            @click="editLine"
+          ></v-btn>
+          <v-btn 
+            icon="mdi-delete" 
+            size="x-small" 
+            variant="plain"
+            @click="deleteLine"
+          ></v-btn>
         </template>
       </v-data-table>
     </div>
@@ -92,5 +99,13 @@
         },
       ],
     }),
+    methods: {
+      editLine() {
+        console.log('Редактирование записи')
+      },
+      deleteLine() {
+        console.log('Удаление записи')
+      }
+    }
   }
 </script>

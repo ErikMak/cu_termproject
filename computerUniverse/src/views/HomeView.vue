@@ -1,7 +1,7 @@
 <template>
-  <ToolbarComponent />
+  <ToolbarComponent v-on:drawer="getDrawerFromChild"/>
 
-  <SidebarComponent />
+  <SidebarComponent v-model="drawer"/>
 
   <v-main>
     <v-container fluid>
@@ -31,6 +31,14 @@ export default defineComponent({
     HeaderComponent,
     DataTableComponent,
     SearchComponent
+  },
+  data: () => ({
+    drawer: true
+  }),
+  methods: {
+    getDrawerFromChild(val: boolean) : void {
+        this.drawer = val
+    }
   }
 });
 </script>

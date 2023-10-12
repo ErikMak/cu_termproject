@@ -27,7 +27,7 @@
 
         <template v-slot:append>
           <div class="pa-4">
-            <v-btn variant="tonal" block>
+            <v-btn variant="tonal" block @click="quit">
               Выйти
             </v-btn>
           </div>
@@ -53,9 +53,11 @@ export default defineComponent({
         { text: 'Прогр. обеспечение', icon: 'mdi-download' },
         { text: 'Заказы', icon: 'mdi-package-variant-closed' },
       ],
-  })
+  }),
+  methods: {
+    quit() {
+      console.log('Выход из аккаунта')
+    }
+  }
 });
 </script>
-
-<style lang="scss" scoped>
-</style>

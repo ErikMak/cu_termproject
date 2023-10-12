@@ -9,6 +9,7 @@
         hide-details
         flat
         bg-color="grey-lighten-4"
+        @click:append-inner="search"
     ></v-text-field>
     </div>
   </template>
@@ -18,5 +19,10 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'SearchComponent',
+    methods: {
+        search() : void {
+            console.log('Поиск')
+        }
+    }
 });
 </script>
