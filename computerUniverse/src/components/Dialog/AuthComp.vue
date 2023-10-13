@@ -4,25 +4,39 @@
             <span class="text-h5"><p class="mt-2 font-weight-bold">Авторизация</p></span>
         </v-card-title>
         <v-card-text>
-            <v-container>
-                Lorem ipsum dolor
-            </v-container>
+            <!-- Доделать counter -->
+            <v-text-field
+                class="mb-2"
+                variant="outlined"
+                label="Логин"
+                counter="10"
+                required
+            >
+            </v-text-field>
+            <!-- Доделать counter -->
+            <v-text-field
+                variant="outlined"
+                label="Пароль"
+                counter="10"
+                required
+            >
+            </v-text-field>
         </v-card-text>
         <v-card-actions>
             <v-spacer>
                 <v-btn
                     color="blue-darken-1"
                     variant="text"
-                    @click="hideDialog"
+                    @click="auth"
                 >
-                    Закрыть
+                    Войти
                 </v-btn>
                 <v-btn
                     color="blue-darken-1"
                     variant="text"
-                    @click="auth"
+                    @click="hideDialog"
                 >
-                    Войти
+                    Закрыть
                 </v-btn>
             </v-spacer>
         </v-card-actions>

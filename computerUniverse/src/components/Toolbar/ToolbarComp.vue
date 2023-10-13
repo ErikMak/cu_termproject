@@ -9,7 +9,7 @@
         <v-dialog
             v-model="showDialog"
             persistent
-            width="500"
+            width="400"
         >
             <!-- Dialog button -->
             <template v-slot:activator="{ props }">

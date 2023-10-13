@@ -14,7 +14,32 @@
             </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
-            Lorem ipsum
+            <v-container fluid>
+                <v-row>
+                    <v-col>
+                        <!-- Добавить валидацию -->
+                        <v-text-field 
+                            label="Значение 1" 
+                            class="mb-2"
+                            variant="solo-filled"
+                            flat
+                            hint="Тестовая подсказка"
+                            clearable
+
+                        >
+                        </v-text-field>
+                        <!-- Добавить валидацию -->
+                        <v-text-field 
+                            label="Значение 2" 
+                            variant="solo-filled"
+                            flat
+                            hint="Тестовая подсказка"
+                            clearable
+                        >
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-card-text>
     </v-card>
 </template>
