@@ -1,0 +1,45 @@
+name: Action On Push
+run-name: Сборка и тестирование проекта
+on: 
+  push:
+    branches-ignore:
+      - main
+jobs:
+  build:
+  name: Сборка
+    runs-on: ubuntu-latest
+    steps:
+      - name: Копирование
+      uses: actions/checkout@v4
+
+      - name: Установка node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 9.1.x
+        cache: npm 
+
+      - name: Установка зависимостей
+      run: npm ci
+
+      - name: Сборка проекта
+      run: npm run build
+  test:
+  name: Unit-тестирование
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Копирование
+      uses: actions/checkout@v4
+      run: cd computerUniverse
+
+      - name: Установка node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 9.1.x
+        cache: npm 
+
+      - name: Установка зависимостей
+      run: npm ci
+
+      - name: Запуск тестов
+      run: npm run test
