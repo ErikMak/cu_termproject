@@ -30,9 +30,6 @@ jobs:
     defaults:
       run: 
         working-directory: ./computerUniverse/
-    defaults:
-      run: 
-        working-directory: ./computerUniverse/
     steps: 
     - name: Копирование
       uses: actions/checkout@v4
