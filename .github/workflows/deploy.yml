@@ -1,6 +1,6 @@
-name: Deploy On GitPages
-run-name: Публикация на GitHub Pages
-on: 
+name: Deploy On Pages
+run-name: Публикация на Github Pages
+on:
   push:
     branches:
       - main
@@ -8,19 +8,26 @@ on:
 permissions: 
   contents: write
 
+
 jobs:
-  publish:
+  gh-pages-deploy:
     runs-on: ubuntu-latest
     defaults:
       run: 
         working-directory: ./computerUniverse/
-    steps: 
-    - name: Копирование
-      uses: actions/checkout@v4
-      
-    - name: Сборка и публикация
-      uses: xRealNeon/VuePagesAction@1.0.1
-      with:
-        username: 'ErikMak'
-        reponame: 'cu-termproject'
-        token: ${{ secrets.GITHUB_TOKEN }} 
+    steps:
+      - name: Копирование
+        uses: actions/checkout@v4
+
+      - name: Установка node
+        uses: actions/setup-node@v3
+        with:
+          cache-dependency-path: './computerUniverse/package-lock.json'
+          node-version: 9.1.x
+          cache: npm 
+
+      - name: Установка зависимостей
+        run: npm i
+
+      - name: Размещение
+        run: npm run deploy
