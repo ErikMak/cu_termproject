@@ -2,8 +2,10 @@
     <div class="px-4">
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="items"
         class="elevation-1"
+        :data-headers="headers.length"
+        :data-items="items.length"
       >
       
         <template v-slot:item.actions="{ item }">
@@ -42,7 +44,7 @@
         { title: 'Iron (%)', key: 'iron' },
         { title: 'Действия', key: 'actions', sortable: false },
       ],
-      desserts: [
+      items: [
         {
           name: 'Frozen Yogurt',
           calories: 159,

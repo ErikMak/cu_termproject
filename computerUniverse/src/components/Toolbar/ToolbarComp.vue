@@ -3,7 +3,7 @@
         color="deep-orange-lighten-4"
         flat
     >
-        <v-app-bar-nav-icon @click='menuButton()'></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon id="menu-btn" @click='menuButton()'></v-app-bar-nav-icon>
 
         <v-spacer></v-spacer>
         <v-dialog
@@ -21,7 +21,7 @@
                 </v-btn>
             </template>
             <!-- Dialog window -->
-            <AuthComponent v-on:showDialog="getShowDialogFromChild"/>
+            <AuthDialogComponent v-on:showDialog="getShowDialogFromChild"/>
         </v-dialog>
     </v-app-bar>
 </template>
@@ -29,12 +29,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import AuthComponent from '../Dialog/AuthComp.vue'
+import AuthDialogComponent from '../Dialog/AuthDialogComp.vue'
 
 export default defineComponent({
     name: 'ToolbarComponent',
     components: {
-        AuthComponent
+        AuthDialogComponent
     },
     emits: ['drawer'],
     data: () => ({
