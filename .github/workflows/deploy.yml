@@ -11,6 +11,9 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: ./computerUniverse/
     steps: 
     - name: Копирование
       uses: actions/checkout@v4

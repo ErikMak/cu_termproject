@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: ./computerUniverse/
     steps:
     - name: Копирование
       uses: actions/checkout@v4
@@ -13,6 +16,7 @@ jobs:
     - name: Установка node
       uses: actions/setup-node@v3
       with:
+        cache-dependency-path: './computerUniverse/package-lock.json'
         node-version: 9.1.x
         cache: npm 
 
@@ -23,16 +27,20 @@ jobs:
       run: npm run build
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: ./computerUniverse/
+    defaults:
+      run: 
+        working-directory: ./computerUniverse/
     steps: 
     - name: Копирование
       uses: actions/checkout@v4
 
-    - name: Переход в папку фронт-енда
-      run: cd computerUniverse
-
     - name: Установка node
       uses: actions/setup-node@v3
       with:
+        cache-dependency-path: './computerUniverse/package-lock.json'
         node-version: 9.1.x
         cache: npm 
 
