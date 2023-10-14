@@ -14,6 +14,8 @@ jobs:
     steps: 
     - name: Копирование
       uses: actions/checkout@v4
+
+    - name: Переход в папку фронт-енда
       run: cd computerUniverse
       
     - name: Сборка и публикация
