@@ -15,11 +15,12 @@
           <v-list-item 
             v-for="(item, i) in items"
             :key="i"
-            :value="item"
+            :value="item.text"
             :prepend-icon="item.icon"
             color="deep-orange-darken-3"
             density="compact"
             class="px-4"
+            id="menu-item"
           >
           <v-list-item-title v-text="item.text"></v-list-item-title>
           </v-list-item>
@@ -27,7 +28,7 @@
 
         <template v-slot:append>
           <div class="pa-4">
-            <v-btn variant="tonal" block @click="quit">
+            <v-btn id="quit-btn" variant="tonal" block @click="quit">
               Выйти
             </v-btn>
           </div>

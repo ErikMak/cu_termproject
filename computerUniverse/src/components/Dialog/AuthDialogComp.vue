@@ -11,6 +11,7 @@
                 label="Логин"
                 counter="10"
                 required
+                id="login-input"
             >
             </v-text-field>
             <!-- Доделать counter -->
@@ -19,6 +20,7 @@
                 label="Пароль"
                 counter="10"
                 required
+                id="pass-input"
             >
             </v-text-field>
         </v-card-text>
@@ -28,10 +30,12 @@
                     color="blue-darken-1"
                     variant="text"
                     @click="auth"
+                    id="auth"
                 >
                     Войти
                 </v-btn>
                 <v-btn
+                    id="hide-dialog"
                     color="blue-darken-1"
                     variant="text"
                     @click="hideDialog"

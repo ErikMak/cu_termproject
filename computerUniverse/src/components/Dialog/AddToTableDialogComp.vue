@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-toolbar dark color="grey-lighten-1">
-            <v-btn icon dark @click="hideDialog">
+            <v-btn icon dark @click="hideDialog" id="hide-add-dialog">
                 <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title>Добавить запись</v-toolbar-title>
@@ -10,6 +10,7 @@
                 <v-btn
                     variant="text"
                     @click="saveData"
+                    id="save-data"
                 >Сохранить</v-btn>
             </v-toolbar-items>
         </v-toolbar>
