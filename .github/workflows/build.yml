@@ -25,7 +25,6 @@ jobs:
       run: npm run build
   test:
   name: Unit-тестирование
-    needs: [build]
     runs-on: ubuntu-latest
     steps: 
       - name: Копирование
@@ -42,4 +41,4 @@ jobs:
       run: npm ci
 
       - name: Запуск тестов
-      run: npm run test
+      run: npm run test:unit
