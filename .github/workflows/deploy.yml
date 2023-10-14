@@ -1,7 +1,7 @@
 name: Deploy On GitPages
 run-name: Публикация на GitHub Pages
 on: 
-  pull_request:
+  push:
     branches:
       - main
 

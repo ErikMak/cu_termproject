@@ -2,8 +2,7 @@ name: Action On Push
 run-name: Сборка и тестирование проекта
 on: 
   push:
-    branches-ignore:
-      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
