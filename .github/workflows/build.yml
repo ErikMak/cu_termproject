@@ -6,39 +6,37 @@ on:
       - main
 jobs:
   build:
-  name: Сборка
     runs-on: ubuntu-latest
     steps:
-      - name: Копирование
+    - name: Копирование
       uses: actions/checkout@v4
 
-      - name: Установка node
+    - name: Установка node
       uses: actions/setup-node@v3
       with:
         node-version: 9.1.x
         cache: npm 
 
-      - name: Установка зависимостей
+    - name: Установка зависимостей
       run: npm ci
 
-      - name: Сборка проекта
+    - name: Сборка проекта
       run: npm run build
   test:
-  name: Unit-тестирование
     runs-on: ubuntu-latest
     steps: 
-      - name: Копирование
+    - name: Копирование
       uses: actions/checkout@v4
       run: cd computerUniverse
 
-      - name: Установка node
+    - name: Установка node
       uses: actions/setup-node@v3
       with:
         node-version: 9.1.x
         cache: npm 
 
-      - name: Установка зависимостей
+    - name: Установка зависимостей
       run: npm ci
 
-      - name: Запуск тестов
+    - name: Запуск тестов
       run: npm run test:unit

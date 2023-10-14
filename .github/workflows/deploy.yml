@@ -1,7 +1,7 @@
 name: Deploy On GitPages
 run-name: Публикация на GitHub Pages
 on: 
-  pull-request:
+  pull_request:
     branches:
       - main
 
@@ -10,14 +10,13 @@ permissions:
 
 jobs:
   publish:
-  name: Публикация
     runs-on: ubuntu-latest
     steps: 
-      - name: Копирование
+    - name: Копирование
       uses: actions/checkout@v4
       run: cd computerUniverse
       
-      - name: Сборка и публикация
+    - name: Сборка и публикация
       uses: xRealNeon/VuePagesAction@1.0.1
       with:
         username: 'ErikMak'
