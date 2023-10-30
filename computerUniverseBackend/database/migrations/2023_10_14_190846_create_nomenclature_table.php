@@ -16,7 +16,11 @@ class CreateNomenclatureTable extends Migration
         Schema::create('nomenclature', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('model_number')->unsigned();
+            $table->index('model_number', 'part_nomenclature_idx');
+            $table->foreign('model_number', 'part_nomenclature_fk')->on('parts')->references('model_number');
             $table->integer('warehouse')->unsigned();
+            $table->index('warehouse', 'warehouse_nomenclature_idx');
+            $table->foreign('warehouse', 'warehouse_nomenclature_fk')->on('warehouses')->references('id');
             $table->boolean('is_exist');
         });
     }

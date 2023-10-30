@@ -20,6 +20,8 @@ class CreatePartsTable extends Migration
             $table->integer('price')->unsigned();
             $table->string('warranty', 18);
             $table->integer('device_id')->unsigned();
+            $table->index('device_id', 'software_part_idx');
+            $table->foreign('device_id', 'software_part_fk')->on('software')->references('device_id');
             $table->string('category', 20);
         });
     }

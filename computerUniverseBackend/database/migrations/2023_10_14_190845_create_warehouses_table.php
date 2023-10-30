@@ -17,6 +17,8 @@ class CreateWarehousesTable extends Migration
             $table->increments('id');
             $table->string('address', 30);
             $table->integer('director')->unsigned();
+            $table->index('director', 'staff_warehouse_idx');
+            $table->foreign('director', 'staff_warehouse_fk')->on('staff')->references('staff_id');
         });
     }
 

@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->increments('order_id');
             $table->date('order_date');
             $table->integer('operator')->unsigned();
+            $table->index('operator', 'staff_order_idx');
+            $table->foreign('operator', 'staff_order_fk')->on('staff')->references('staff_id');
             $table->string('status', 15);
             $table->integer('delivery_time')->unsigned();
             $table->integer('sum')->unsigned();

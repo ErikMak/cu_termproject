@@ -16,6 +16,8 @@ class CreateCreditsTable extends Migration
         Schema::create('credits', function (Blueprint $table) {
             $table->increments('bid_id');
             $table->integer('order_id')->unsigned();
+            $table->index('order_id', 'order_credit_idx');
+            $table->foreign('order_id', 'order_credit_fk')->on('orders')->references('order_id');
             $table->integer('init_payment')->unsigned();
             $table->integer('payment')->unsigned();
         });
