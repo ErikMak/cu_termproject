@@ -11,10 +11,11 @@ class CreateFirmsTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('firms', function (Blueprint $table) {
-            $table->integer('INN');
+            $table->bigInteger('INN');
             $table->primary('INN');
             $table->string('firm_name', 30);
             $table->string('city', 20);

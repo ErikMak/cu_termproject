@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Nomenclature extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id';
+    protected $table = 'nomenclature';
+
+    public $timestamps = false;
 }

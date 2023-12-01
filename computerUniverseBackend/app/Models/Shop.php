@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'INN';
+    protected $table = 'shops';
+
+    public $timestamps = false;
 }

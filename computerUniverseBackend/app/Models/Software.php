@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Software extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'device_id';
+    protected $table = 'software';
+    public $timestamps = false;
 }
