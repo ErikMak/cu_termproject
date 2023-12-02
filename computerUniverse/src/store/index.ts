@@ -1,14 +1,16 @@
-import { createStore } from 'vuex'
+import Vuex from 'vuex'
 
-export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+import {PartsState} from "@/store/modules/IParts";
+
+import Parts from './modules/Parts'
+
+
+interface State {
+  parts: PartsState
+}
+
+export default new Vuex.Store<State>({
   modules: {
+    parts: Parts
   }
 })
