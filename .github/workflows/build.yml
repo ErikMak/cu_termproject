@@ -1,7 +1,8 @@
 name: Action On Push
 run-name: Сборка и тестирование проекта
 on: 
-  push:
+  [pull_request]
+
 
 jobs:
   build:
@@ -21,7 +22,7 @@ jobs:
         cache: npm 
 
     - name: Установка зависимостей
-      run: npm ci
+      run: npm i
 
     - name: Сборка проекта
       run: npm run build
@@ -42,7 +43,7 @@ jobs:
         cache: npm 
 
     - name: Установка зависимостей
-      run: npm ci
+      run: npm i
 
     - name: Запуск тестов
       run: npm run test:unit
