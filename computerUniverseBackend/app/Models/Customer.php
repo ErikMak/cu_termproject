@@ -13,4 +13,12 @@ class Customer extends Model
     protected $table = 'customers';
 
     public $timestamps = false;
+
+    public function orders() {
+        return $this->hasMany(Order::class, 'order_id', 'order_id');
+    }
+
+    public function managers() {
+        return $this->belongsTo(Manager::class, 'customer', 'manager_id');
+    }
 }

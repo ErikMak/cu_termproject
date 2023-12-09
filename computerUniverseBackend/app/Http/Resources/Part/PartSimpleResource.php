@@ -4,7 +4,7 @@ namespace App\Http\Resources\Part;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PartWarehouseResource extends JsonResource
+class PartSimpleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,10 @@ class PartWarehouseResource extends JsonResource
     {
         return [
             'model_number' => $this->model_number,
-            'manufacturer' => $this->manufacturer,
-            'name' => $this->name,
-            'price' => $this->price,
-            'is_exist' => $this->is_exist,
-            'category' => $this->category,
-            'warranty' => $this->warranty
+            'name'=> $this->name,
+            'manufacturer'=> $this->manufacturer,
+            'price'=> $this->price,
+            'category'=> $this->category,
         ];
     }
 }

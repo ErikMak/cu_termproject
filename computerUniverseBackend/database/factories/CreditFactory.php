@@ -15,7 +15,7 @@ class CreditFactory extends Factory
     public function definition()
     {
         return [
-            'order_id' => Order::factory(),
+            'order_id' => Order::get()->random()->order_id,
             'init_payment' => round($this->faker->numberBetween(100, 900), -1),
             'payment' => round($this->faker->numberBetween(100, 900), -1)
         ];

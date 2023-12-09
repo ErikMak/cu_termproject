@@ -12,4 +12,8 @@ class Warehouse extends Model
     protected $primaryKey = 'id';
     protected $table = 'warehouses';
     public $timestamps = false;
+
+    public function staff() {
+        return $this->hasMany(Staff::class, 'staff_id', 'director');
+    }
 }

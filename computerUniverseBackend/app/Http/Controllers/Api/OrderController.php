@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Nomenclature\NomenclatureResource;
-use App\Models\Nomenclature;
+use App\Http\Resources\Order\OrderResource;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class NomenclatureController extends BaseContoller
+class OrderController extends BaseContoller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class NomenclatureController extends BaseContoller
      */
     public function index()
     {
-        //
+        $orders = Order::with('customers')->get();
+
+        return $this->sendResponse(OrderResource::collection($orders));
     }
 
     /**
@@ -32,22 +34,27 @@ class NomenclatureController extends BaseContoller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Nomenclature  $nomenclature
      * @return \Illuminate\Http\Response
      */
-    public function show(Nomenclature $nomenclature)
+    public function show(string $id)
     {
-        //
+        $order = Order::with('customers')->find($id);
+
+        if(is_null($order)) {
+            return $this->sendError('Заказ не найден');
+        }
+
+        return $this->sendResponse(new OrderResource($order));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Nomenclature  $nomenclature
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nomenclature $nomenclature)
+    public function update(Request $request, Order $order)
     {
         //
     }
@@ -55,18 +62,11 @@ class NomenclatureController extends BaseContoller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Nomenclature  $nomenclature
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Nomenclature $nomenclature)
+    public function destroy(Order $order)
     {
         //
-    }
-
-    public function print() {
-        $nomenclature = Nomenclature::with('warehouses')
-            ->with('parts')->get();
-
-        return $this->sendResponse(NomenclatureResource::collection($nomenclature));
     }
 }

@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->integer('operator')->unsigned();
             $table->index('operator', 'staff_order_idx');
             $table->foreign('operator', 'staff_order_fk')->on('staff')->references('staff_id');
-            $table->string('status', 15);
+            $table->string('status', 15)->default('Оплачено');
             $table->integer('delivery_time')->unsigned();
             $table->integer('sum')->unsigned();
         });
@@ -32,6 +32,8 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::table('orders', function() {
+            \Illuminate\Support\Facades\DB::statement("DROP TABLE orders CASCADE;");
+        });
     }
 }

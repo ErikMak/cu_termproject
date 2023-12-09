@@ -23,7 +23,6 @@ class OrderFactory extends Factory
             'operator' => Staff::factory(),
             'status' => $this->generateStatus(),
             'delivery_time' => $this->faker->randomDigitNot(0),
-            'sum' => 0
         ];
     }
 }

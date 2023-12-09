@@ -14,4 +14,10 @@ class Part extends Model
     protected $primaryKey = 'model_number';
     protected $table = 'parts';
     public $timestamps = false;
+
+    protected $fillable = [
+        'name', 'manufacturer',
+        'price', 'warranty',
+        'device_id', 'category'
+    ];
 }
