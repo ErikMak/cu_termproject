@@ -4,14 +4,7 @@
   <SidebarComponent v-model="drawer"/>
 
   <v-main>
-    <v-container fluid>
-      <HeaderComponent />
-
-      <!-- Search field for table -->
-      <SearchComponent />
-      
-      <DataTableComponent />
-    </v-container>
+      <router-view />
   </v-main>
 </template>
 
@@ -19,21 +12,19 @@
 import { defineComponent } from 'vue';
 import ToolbarComponent from '../components/Toolbar/ToolbarComp.vue'
 import SidebarComponent from '../components/Sidebar/SidebarComp.vue'
-import HeaderComponent from '../components/Header/HeaderComp.vue'
-import DataTableComponent from '../components/DataTable/DataTableComp.vue'
-import SearchComponent from '../components/Search/SearchComp.vue'
+
+interface State {
+  drawer: boolean,
+}
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     ToolbarComponent,
     SidebarComponent,
-    HeaderComponent,
-    DataTableComponent,
-    SearchComponent
   },
-  data: () => ({
-    drawer: true
+  data: (): State => ({
+    drawer: true,
   }),
   methods: {
     getDrawerFromChild(val: boolean) : void {
