@@ -3,7 +3,7 @@
     <v-text-field
         density="compact"
         variant="solo"
-        label="Поиск товара по ID"
+        :label="label"
         append-inner-icon="mdi-magnify"
         single-line
         hide-details
@@ -19,6 +19,12 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'SearchComponent',
+    props: {
+      label: {
+        type: String,
+        required: true
+      }
+    },
     methods: {
         search() : void {
             console.log('Поиск')

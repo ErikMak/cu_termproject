@@ -21,8 +21,10 @@
             density="compact"
             class="px-4"
             id="menu-item"
+            :to="item.link"
           >
-          <v-list-item-title v-text="item.text"></v-list-item-title>
+              <v-list-item-title v-text="item.text">
+              </v-list-item-title>
           </v-list-item>
         </v-list>
 
@@ -48,11 +50,31 @@ export default defineComponent({
   },
   data: () => ({
     items: [
-        { text: 'Магазины', icon: 'mdi-storefront' },
-        { text: 'Комплектующие', icon: 'mdi-memory' },
-        { text: 'Товары на складе', icon: 'mdi-warehouse' },
-        { text: 'Прогр. обеспечение', icon: 'mdi-download' },
-        { text: 'Заказы', icon: 'mdi-package-variant-closed' },
+        {
+          text: 'Заказчики',
+          icon: 'mdi-storefront',
+          link: 'customers'
+        },
+        {
+          text: 'Комплектующие',
+          icon: 'mdi-memory',
+          link: 'parts'
+        },
+        {
+          text: 'Cклады',
+          icon: 'mdi-warehouse',
+          link: 'warehouses'
+        },
+        {
+          text: 'Заказы',
+          icon: 'mdi-package-variant-closed',
+          link: 'orders'
+        },
+        {
+          text: 'Номенклатура',
+          icon: 'mdi-format-list-checkbox',
+          link: 'nomenclature'
+        },
       ],
   }),
   methods: {

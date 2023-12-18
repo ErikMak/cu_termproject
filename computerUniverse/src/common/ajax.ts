@@ -27,6 +27,32 @@ export default class Ajax {
             });
     }
 
+    static put(url: any, data: any = {}, success: any, failure: any) {
+        axios.put(url, data)
+            .then(response => {
+                if(response.data["status"]) success(response.data)
+                else {
+                    failure(response.data)
+                }
+            })
+            .catch(error => {
+                throw error;
+            });
+    }
+
+    static delete(url: any, data: any = {}, success: any, failure: any) {
+        axios.delete(url, data)
+            .then(response => {
+                if(response.data["status"]) success(response.data)
+                else {
+                    failure(response.data)
+                }
+            })
+            .catch(error => {
+                throw error;
+            });
+    }
+
     static createParameter(data: any = {}) {
         const params = new URLSearchParams();
         Object.keys(data).forEach(key => {

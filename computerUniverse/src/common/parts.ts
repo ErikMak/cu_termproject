@@ -9,4 +9,5 @@ export default {
     getPartsFromWarehouse(data: any, success: any) {
         Ajax.get(ApiPartsFromWarehouse, data, success, () => false)
     },
+
 }
