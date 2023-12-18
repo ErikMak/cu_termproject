@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Nomenclature\NomenclatureResource;
-use App\Models\Nomenclature;
+use App\Http\Resources\Warehouse\WarehouseResource;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
-class NomenclatureController extends BaseContoller
+class WarehouseController extends BaseContoller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        //
+        $warehouses = Warehouse::with('staff')->get();
+
+        return $this->sendResponse(WarehouseResource::collection($warehouses));
     }
 
     /**
@@ -32,22 +35,27 @@ class NomenclatureController extends BaseContoller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Nomenclature  $nomenclature
      * @return \Illuminate\Http\Response
      */
-    public function show(Nomenclature $nomenclature)
+    public function show(string $id)
     {
-        //
+        $warehouse = Warehouse::with('staff')->find($id);
+
+        if(is_null($warehouse)) {
+            return $this->sendError('Склад не найден');
+        }
+
+        return $this->sendResponse(new WarehouseResource($warehouse));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Nomenclature  $nomenclature
+     * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nomenclature $nomenclature)
+    public function update(Request $request, Warehouse $warehouse)
     {
         //
     }
@@ -55,18 +63,11 @@ class NomenclatureController extends BaseContoller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Nomenclature  $nomenclature
+     * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Nomenclature $nomenclature)
+    public function destroy(Warehouse $warehouse)
     {
         //
-    }
-
-    public function print() {
-        $nomenclature = Nomenclature::with('warehouses')
-            ->with('parts')->get();
-
-        return $this->sendResponse(NomenclatureResource::collection($nomenclature));
     }
 }

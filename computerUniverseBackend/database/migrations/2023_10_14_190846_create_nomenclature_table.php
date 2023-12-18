@@ -17,11 +17,13 @@ class CreateNomenclatureTable extends Migration
             $table->increments('id');
             $table->integer('model_number')->unsigned();
             $table->index('model_number', 'part_nomenclature_idx');
-            $table->foreign('model_number', 'part_nomenclature_fk')->on('parts')->references('model_number');
+            $table->foreign('model_number', 'part_nomenclature_fk')->on('parts')
+                ->references('model_number')->onDelete('cascade');
             $table->integer('warehouse')->unsigned();
             $table->index('warehouse', 'warehouse_nomenclature_idx');
-            $table->foreign('warehouse', 'warehouse_nomenclature_fk')->on('warehouses')->references('id');
-            $table->boolean('is_exist');
+            $table->foreign('warehouse', 'warehouse_nomenclature_fk')->on('warehouses')
+                ->references('id')->onDelete('cascade');
+            $table->tinyInteger('is_exist');
         });
     }
 
@@ -32,6 +34,8 @@ class CreateNomenclatureTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nomenclature');
+        Schema::table('nomenclature', function() {
+            \Illuminate\Support\Facades\DB::statement("DROP TABLE nomenclature CASCADE;");
+        });
     }
 }

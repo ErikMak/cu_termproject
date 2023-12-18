@@ -13,4 +13,8 @@ class Manager extends Model
     protected $table = 'managers';
 
     public $timestamps = false;
+
+    public function customers() {
+        return $this->hasMany(Customer::class, 'customer', 'manager_id');
+    }
 }

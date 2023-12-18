@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Part;
+namespace App\Http\Resources\Nomenclature;
 
+use App\Http\Resources\Part\PartSimpleResource;
+use App\Http\Resources\Warehouse\WarehouseSimpleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PartWarehouseResource extends JsonResource
+class NomenclatureResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +17,10 @@ class PartWarehouseResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'model_number' => $this->model_number,
-            'manufacturer' => $this->manufacturer,
-            'name' => $this->name,
-            'price' => $this->price,
+            'id' => $this->id,
+            'part' => PartSimpleResource::collection($this->parts),
             'is_exist' => $this->is_exist,
-            'category' => $this->category,
-            'warranty' => $this->warranty
+            'warehouse' => WarehouseSimpleResource::collection($this->warehouses)
         ];
     }
 }

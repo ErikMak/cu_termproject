@@ -16,8 +16,8 @@ class CartFactory extends Factory
     public function definition()
     {
         return [
-            'order_id' => Order::factory(),
-            'model_number' => Part::factory()
+            'order_id' => Order::get()->random()->order_id,
+            'model_number' => Part::get()->random()->model_number
         ];
     }
 }

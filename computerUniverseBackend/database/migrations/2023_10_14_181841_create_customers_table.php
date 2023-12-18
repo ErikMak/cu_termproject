@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->foreign('customer', 'manager_customer_fk')->on('managers')->references('manager_id');
             $table->string('address', 30);
             $table->string('phone', 20);
-            $table->integer('order_id')->unsigned();
+            $table->integer('order_id')->unsigned()->nullable();
             $table->index('order_id', 'order_customer_idx');
             $table->foreign('order_id', 'order_customer_fk')->on('orders')->references('order_id');
         });

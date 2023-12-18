@@ -23,7 +23,7 @@ class CustomerFactory extends Factory
             'customer' => Manager::factory(),
             'address' => $this->generateAddress(),
             'phone' => $this->faker->phoneNumber(),
-            'order_id' => Order::factory()
+            'order_id' => Order::get()->random()->order_id
         ];
     }
 }

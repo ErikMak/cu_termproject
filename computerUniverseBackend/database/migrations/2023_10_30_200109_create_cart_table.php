@@ -16,10 +16,12 @@ class CreateCartTable extends Migration
         Schema::create('cart', function (Blueprint $table) {
             $table->integer('order_id')->unsigned();
             $table->index('order_id', 'order_cart_idx');
-            $table->foreign('order_id', 'order_cart_fk')->on('orders')->references('order_id');
+            $table->foreign('order_id', 'order_cart_fk')->on('orders')
+                ->references('order_id')->onDelete('cascade');
             $table->integer('model_number')->unsigned();
             $table->index('model_number', 'part_cart_idx');
-            $table->foreign('model_number', 'part_cart_fk')->on('parts')->references('model_number');
+            $table->foreign('model_number', 'part_cart_fk')->on('parts')
+                ->references('model_number')->onDelete('cascade');
         });
     }
 
@@ -30,6 +32,8 @@ class CreateCartTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cart');
+        Schema::table('cart', function() {
+            \Illuminate\Support\Facades\DB::statement("DROP TABLE cart CASCADE;");
+        });
     }
 }
