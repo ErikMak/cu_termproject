@@ -25,7 +25,7 @@
         </v-dialog>
     </div>
 
-    <DataTableComponent :headers=headers :items=getParts />
+    <DataTableComponent :headers=headers :items=getOrders />
   </v-container>
 </template>
 
@@ -37,7 +37,6 @@ import DataTableComponent from "@/components/DataTable/DataTableComp.vue";
 import AddOrderDialogComp from "@/components/Dialog/AddOrderDialogComp.vue";
 import {mapActions, mapGetters} from "vuex";
 
-import Parts from '@/types/IPartsData'
 interface State {
   headers: any,
   showDialog: boolean
@@ -53,38 +52,33 @@ export default defineComponent({
   data: (): State => ({
     headers: [
       {
-        title: 'Артикул',
+        title: 'ID',
         align: 'start',
         sortable: false,
-        key: 'model_number',
+        key: 'order_id',
       },
-      { title: 'Производитель', key: 'manufacturer' },
-      { title: 'Название', key: 'name' },
-      { title: 'Цена', key: 'price' },
-      {
-        title: 'Наличие',
-        key: 'is_exist',
-        value: (item : any) => {
-          return item.is_exist ? `В наличии` : `Отсутствует`;
-        },
-      },
-      { title: 'Категория', key: 'category'},
+      { title: 'Дата создания', key: 'order_date' },
+      { title: 'Статус', key: 'status' },
+      { title: 'Срок доставки', key: 'delivery_time' },
+      { title: 'ID Заказчика', key: 'customers.customer_id'},
+      { title: 'Адрес', key: 'customers.address'},
+      { title: 'Действия', key: 'actions', sortable: false },
     ],
     showDialog: false
   }),
   methods: {
-    ...mapActions(["uploadPartsFromWarehouse"]),
+    ...mapActions(["uploadAllOrders"]),
     getShowDialogFromChild(val: boolean) : void {
       this.showDialog = val
     }
   },
   computed: {
-    ...mapGetters(["getParts"])
+    ...mapGetters(["getOrders"])
   },
   created() {
     const warehouse : number = 1
 
-    this.uploadPartsFromWarehouse({warehouse: warehouse})
+    this.uploadAllOrders({warehouse: warehouse})
   }
 });
 </script>

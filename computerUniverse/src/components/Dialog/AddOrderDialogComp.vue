@@ -23,7 +23,7 @@
                 label="Дата заказа"
                 class="mb-2"
                 variant="solo-filled"
-                hint="Дата в формате ДД-ММ-ГГ"
+                hint="Дата в формате ГГГГ-ММ-ДД"
                 flat
                 clearable
             >

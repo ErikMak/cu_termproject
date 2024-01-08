@@ -40,8 +40,8 @@ export default class Ajax {
             });
     }
 
-    static delete(url: any, data: any = {}, success: any, failure: any) {
-        axios.delete(url, data)
+    static delete(url: any, success: any, failure: any) {
+        axios.delete(url)
             .then(response => {
                 if(response.data["status"]) success(response.data)
                 else {
