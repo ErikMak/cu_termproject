@@ -3,13 +3,14 @@
     <div class="d-flex flex-row justify-space-between align-center px-4">
       <HeaderComponent title="Комплектующие"/>
 
+      <!-- Диалог контейнер -->
       <v-dialog
           v-model="showDialog"
           fullscreen
           scrim="false"
           transition="dialog-bottom-transition"
       >
-        <!-- Dialog button -->
+        <!-- Диалог кнопка -->
         <template v-slot:activator="{ props }">
           <v-btn
               variant="tonal"
@@ -19,15 +20,17 @@
             Добавить
           </v-btn>
         </template>
-        <!-- Dialog window -->
+        <!-- Диалог окно -->
         <AddPartDialogComp v-on:showDialog="getShowDialogFromChild"/>
       </v-dialog>
     </div>
     <!-- Поисковая строка -->
-    <SearchComponent label="Поиск по названию"/>
+    <SearchComponent label="Поиск по названию" v-on:part_name="getValueFromChild"/>
 
 
-    <DataTableComponent :headers=headers :items=getParts />
+<!--    <DataTableComponent :headers=headers :items=getParts />-->
+    <!-- Таблица -->
+    <DataTableComponent :headers=headers :items=items />
   </v-container>
 </template>
 
@@ -40,10 +43,11 @@ import DataTableComponent from "@/components/DataTable/DataTableComp.vue";
 import {mapActions, mapGetters} from "vuex";
 
 
-import Parts from '@/types/IPartsData'
 interface State {
   headers: any,
-  showDialog: boolean
+  showDialog: boolean,
+  part_name: string,
+  items: any,
 }
 export default defineComponent({
   name: 'CustomersView',
@@ -72,22 +76,41 @@ export default defineComponent({
         },
       },
       { title: 'Категория', key: 'category'},
+      { title: 'Действия', key: 'actions', sortable: false },
     ],
-    showDialog: false
+    showDialog: false,
+    part_name: '',
+    items: [
+      {
+        model_number: 1,
+        manufacturer: 'MSI',
+        name: 'NONAME',
+        price: 100,
+        is_exist: 1,
+        category: 'Видеокарта',
+      }
+    ]
   }),
   methods: {
-    ...mapActions(["uploadPartsFromWarehouse"]),
+    ...mapActions(["uploadAllParts", "uploadPartByName"]),
     getShowDialogFromChild(val: boolean) : void {
       this.showDialog = val
+    },
+    getValueFromChild(val: string) : void {
+      this.part_name = val
     }
   },
   computed: {
     ...mapGetters(["getParts"])
   },
   created() {
-    const warehouse : number = 1
-
-    this.uploadPartsFromWarehouse({warehouse: warehouse})
+    this.uploadAllParts()
+  },
+  watch: {
+    part_name() {
+      const part_name = this.part_name
+      this.uploadPartByName({name: part_name})
+    }
   }
 });
 </script>

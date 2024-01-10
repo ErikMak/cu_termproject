@@ -4,7 +4,7 @@
       <HeaderComponent title="Склады"/>
     </div>
 
-    <DataTableComponent :headers=headers :items=getParts />
+    <DataTableComponent :headers=headers :items=getWarehouses />
   </v-container>
 </template>
 
@@ -29,34 +29,26 @@ export default defineComponent({
   data: (): State => ({
     headers: [
       {
-        title: 'Артикул',
+        title: 'ID',
         align: 'start',
         sortable: false,
-        key: 'model_number',
+        key: 'id',
       },
-      { title: 'Производитель', key: 'manufacturer' },
-      { title: 'Название', key: 'name' },
-      { title: 'Цена', key: 'price' },
-      {
-        title: 'Наличие',
-        key: 'is_exist',
+      { title: 'Адрес', key: 'address' },
+      { title: 'ФИ Директора', key: 'fullname',
         value: (item : any) => {
-          return item.is_exist ? `В наличии` : `Отсутствует`;
-        },
-      },
-      { title: 'Категория', key: 'category'},
+          return item.director[0]['fullname'];
+        },},
     ],
   }),
   methods: {
-    ...mapActions(["uploadPartsFromWarehouse"])
+    ...mapActions(["uploadAllWarehouses"])
   },
   computed: {
-    ...mapGetters(["getParts"])
+    ...mapGetters(["getWarehouses"])
   },
   created() {
-    const warehouse : number = 1
-
-    this.uploadPartsFromWarehouse({warehouse: warehouse})
+    this.uploadAllWarehouses()
   }
 });
 </script>

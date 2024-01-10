@@ -1,10 +1,10 @@
 <template>
   <v-card>
     <v-toolbar dark color="grey-lighten-1">
-      <v-btn icon dark @click="hideDialog" id="hide-add-dialog">
+      <v-btn icon dark @click="hideDialog" id="hide-edit-dialog">
         <v-icon>mdi-close</v-icon>
       </v-btn>
-      <v-toolbar-title>Добавить запись</v-toolbar-title>
+      <v-toolbar-title>Изменить запись</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn
@@ -29,6 +29,7 @@
                 :error-messages="msg.name"
             >
             </v-text-field>
+
             <v-text-field
                 label="Производитель"
                 class="mb-2"
@@ -101,8 +102,14 @@ interface State {
 }
 
 export default defineComponent({
-  name: 'AddPartDialogComponent',
+  name: 'EditPartDialogComponent',
   emits: ['showDialog'],
+  props: {
+    item: {
+      required: true,
+      type: Object
+    }
+  },
   data: (): State => ({
     showDialogVal: true,
     name: '',
@@ -142,6 +149,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkManufacturer() : boolean {
       let valid = false
 
@@ -154,6 +162,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkPrice() : boolean {
       let valid = false
 
@@ -166,6 +175,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkWarranty() : boolean {
       let valid = false
 
@@ -178,6 +188,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkDeviceID() : boolean {
       let valid = false
 
@@ -190,6 +201,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkCategory() : boolean {
       let valid = false
 
@@ -202,6 +214,7 @@ export default defineComponent({
 
       return valid
     },
+
 
     saveData() {
       let isNameValid = this.checkName(),
@@ -219,7 +232,10 @@ export default defineComponent({
           isCategoryValid
 
       if(isFormValid) {
-        Api.addPart({
+        let obj : any = this.item
+
+
+        Api.updatePart(obj.model_number, {
           name: this.name,
           manufacturer: this.manufacturer,
           price: this.price,
@@ -227,9 +243,7 @@ export default defineComponent({
           device_id: this.device_id,
           category: this.category
         }, (res: Response) => {
-
-          //           ТУТ ОСТАНОВИЛСЯ
-
+          // TODO
           console.log(res)
         }, (err: any) => {
           alert(err)

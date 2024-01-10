@@ -7,38 +7,74 @@
   </v-container>
 
   <div class="px-4">
-  <v-table density="compact">
-    <thead>
-    <tr>
-      <th class="text-left">
-        Name
-      </th>
-      <th class="text-left">
-        Calories
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr
-        v-for="item in desserts"
-        :key="item.name"
+    <v-data-table
+        :headers="headers"
+        :items="getNomenclature"
+        class="elevation-1"
+        :data-headers="headers.length"
+        :data-items="getNomenclature.length"
+        density="compact"
+        items-per-page="-1"
     >
-      <td>{{ item.name }}</td>
-      <td>{{ item.calories }}</td>
-    </tr>
-    </tbody>
-  </v-table>
+    </v-data-table>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import HeaderComponent from "@/components/Header/HeaderComp.vue";
+import {mapActions, mapGetters} from "vuex";
 
+interface State {
+  headers: any,
+  items: any
+}
 export default defineComponent({
   name: 'NomenclatureView',
   components: {
     HeaderComponent,
+  },
+  data: (): State => ({
+    headers: [
+      { title: 'Название', key: 'name',
+        value: (item : any) => {
+          return item.part[0].name;
+        },
+      },
+      { title: 'Производитель', key: 'manufacturer',
+        value: (item : any) => {
+          return item.part[0].manufacturer;
+        },
+      },
+      { title: 'Цена', key: 'price',
+        value: (item : any) => {
+          return item.part[0].price;
+        },
+      },
+      {
+        title: 'Наличие',
+        key: 'is_exist',
+        value: (item : any) => {
+          return item.is_exist ? `В наличии` : `Отсутствует`;
+        },
+      },
+      { title: 'Склад', key: 'warehouse',
+        value: (item : any) => {
+          return item.warehouse[0].address;
+        },
+      },
+    ],
+    items: []
+  }),
+  methods: {
+    ...mapActions(["uploadNomenclature"])
+  },
+  computed: {
+    ...mapGetters(["getNomenclature"])
+  },
+  created() {
+    this.uploadNomenclature()
   }
+
 });
 </script>
