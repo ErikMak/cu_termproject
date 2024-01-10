@@ -7,7 +7,8 @@ use App\Http\Requests\StorePartRequest;
 use App\Http\Resources\Part\PartResource;
 use App\Http\Resources\Part\PartWarehouseResource;
 use App\Models\Part;
-use Illuminate\Http\Request;
+use App\Models\Software;
+use Illuminate\Support\Facades\DB;
 
 class PartController extends BaseContoller
 {
@@ -33,9 +34,23 @@ class PartController extends BaseContoller
     {
         $validated = $request->validated();
 
-        $part = Part::create($validated);
+        // Проверка на существование Device ID
+        $software = Software::where('device_id', $validated["device_id"])->first();
 
-        return $this->sendResponse(new PartResource($part), 'Компонент успешно добавлен!');
+        if(!isset($software)) {
+            return $this->sendError('Такого Device ID не существует!');
+        }
+
+        DB::select('call insert_part(?, ?, ?, ?, ?, ?)', array(
+            $validated['name'],
+            $validated['manufacturer'],
+            $validated['price'],
+            $validated['warranty'],
+            $validated['device_id'],
+            $validated['category']
+        ));
+
+        return $this->sendResponse($validated, 'Компонент успешно добавлен!');
     }
 
     /**
@@ -65,11 +80,24 @@ class PartController extends BaseContoller
     {
         $validated = $request->validated();
 
-        $part = Part::find($model_number);
+        // Проверка на существование Device ID
+        $software = Software::where('device_id', $validated["device_id"])->first();
 
-        $part->update($validated);
+        if(!isset($software)) {
+            return $this->sendError('Такого Device ID не существует!');
+        }
 
-        return $this->sendResponse(new PartResource($part), 'Компонент успешно обновлен!');
+        DB::select('call update_part(?, ?, ?, ?, ?, ?, ?)', array(
+            $validated['name'],
+            $validated['manufacturer'],
+            $validated['price'],
+            $validated['warranty'],
+            $validated['device_id'],
+            $validated['category'],
+            $model_number
+        ));
+
+        return $this->sendResponse($validated, 'Компонент успешно обновлен!');
     }
 
     /**
@@ -80,8 +108,9 @@ class PartController extends BaseContoller
      */
     public function destroy(string $model_number)
     {
-        $part = Part::find($model_number);
-        $part->delete();
+        DB::select('call delete_part(?)', array(
+            $model_number,
+        ));
 
         return response('Компонент успешно удален!', 204);
     }

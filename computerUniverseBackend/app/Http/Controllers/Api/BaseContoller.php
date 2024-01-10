@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Contoller;
 
 class BaseContoller extends Contoller {
+    public function sendOK() {
+        $response = [
+            'status' => true,
+        ];
+
+        return response()->json($response, 200);
+    }
+
     public function sendResponse($data, $msg = '') {
         $response = [
             'status' => true,

@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['namespace' => 'App\Http\Controllers\Api'], function() {
     // Все компоненты
     Route::get('parts', 'PartController@index');
@@ -45,4 +41,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function() {
     Route::post('customers', 'CustomerController@store');
     // Распечатка номенклатуры
     Route::get('nomenclature/print', 'NomenclatureController@print');
+
+
+    Route::prefix('auth')->group(function () {
+        // Регистрация
+        Route::post('register', 'AuthController@register');
+
+        // Вход в систему
+        Route::post('login', 'AuthController@login');
+        // Обновление токена
+        Route::get('refresh', 'AuthController@refresh');
+
+        // Маршруты, доступные после авторизации
+        Route::middleware('auth:api')->group(function () {
+            // Данные пользователя
+            Route::get('user', 'AuthController@user');
+            // Выход из аккаунта
+            Route::post('logout', 'AuthController@logout');
+        });
+    });
 });
