@@ -6,7 +6,7 @@
         border="0"
       >
         <!-- Sidebar Profile -->
-        <SidebarProfileComponent />
+        <SidebarProfileComponent v-if="getLoggedStatus" :username="getUserLogin"/>
 
         <v-divider></v-divider>
 
@@ -29,7 +29,7 @@
         </v-list>
 
         <template v-slot:append>
-          <div class="pa-4">
+          <div class="pa-4" v-if="getLoggedStatus">
             <v-btn id="quit-btn" variant="tonal" block @click="quit">
               Выйти
             </v-btn>
@@ -42,6 +42,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SidebarProfileComponent from './SidebarProfileComp.vue'
+import UserService from "@/services/UserService";
+import {mapActions, mapGetters} from "vuex";
 
 export default defineComponent({
   name: 'SidebarComponent',
@@ -78,9 +80,18 @@ export default defineComponent({
       ],
   }),
   methods: {
+    ...mapActions(["checkLoggedStatus"]),
     quit() {
-      console.log('Выход из аккаунта')
+      UserService.logout().then(() => {
+        this.checkLoggedStatus()
+      })
     }
+  },
+  computed: {
+    ...mapGetters(["getLoggedStatus", "getUserLogin"])
+  },
+  created() {
+    this.checkLoggedStatus()
   }
 });
 </script>

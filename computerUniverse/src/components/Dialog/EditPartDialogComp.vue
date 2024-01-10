@@ -20,6 +20,7 @@
           <v-col>
             <v-text-field
                 label="Название"
+                id="name"
                 class="mb-2"
                 variant="solo-filled"
                 hint="Максимальная длина - 30 символов"
@@ -32,6 +33,7 @@
 
             <v-text-field
                 label="Производитель"
+                id="manufacturer"
                 class="mb-2"
                 variant="solo-filled"
                 hint="Максимальная длина - 20 символов"
@@ -43,6 +45,7 @@
             </v-text-field>
             <v-text-field
                 label="Цена"
+                id="price"
                 variant="solo-filled"
                 flat
                 clearable
@@ -52,6 +55,7 @@
             </v-text-field>
             <v-text-field
                 label="Гарантия"
+                id="warranty"
                 variant="solo-filled"
                 hint="Максимальная длина - 18 символов"
                 flat
@@ -62,6 +66,7 @@
             </v-text-field>
             <v-text-field
                 label="Device ID"
+                id="device_id"
                 variant="solo-filled"
                 flat
                 clearable
@@ -71,6 +76,7 @@
             </v-text-field>
             <v-text-field
                 label="Категория"
+                id="category"
                 variant="solo-filled"
                 flat
                 hint="Максимальная длина - 20 символов"
@@ -243,13 +249,21 @@ export default defineComponent({
           device_id: this.device_id,
           category: this.category
         }, (res: Response) => {
-          // TODO
-          console.log(res)
+          this.hideDialog()
         }, (err: any) => {
-          alert(err)
+          alert(err.error)
         })
       }
     },
+  },
+  created() {
+    let obj : any = this.item
+    this.name = obj.name
+    this.manufacturer = obj.manufacturer
+    this.price = obj.price
+    this.warranty = obj.warranty
+    this.device_id = obj.device_id
+    this.category = obj.category
   }
 });
 </script>
