@@ -3,8 +3,7 @@
 
 CRUD SPA приложение для работы с базой данных PostgeSQL, разработанное с помощью Vue 3 и Laravel. База данных хранит и обрабатывает информацию для сети компьютерных магазинов. 
 
-> **Note**
-> Является частью курсового проекта 3 курса университета. 
+> **Note** Является частью курсового проекта 3 курса университета. 
 
 ## :books: Технологии использованы
 * HTML, CSS, JavaScript
@@ -54,9 +53,10 @@ CRUD SPA приложение для работы с базой данных Pos
 ```bash
 > cp .env.example .env
 ```
-Генерация ключа
+Генерация ключей
 ```bash
 > php artisan key:generate
+> php artisan jwt:secret
 ```
 Запуск миграций
 ```bash
@@ -85,5 +85,12 @@ CRUD SPA приложение для работы с базой данных Pos
 <a name="shots"></a>
 
 ### :camera: Скриншоты
-IDEF1x модель
-<img src="res/tables.png" />
+_IDEF1x модель_
+<img src="res/tables.jpg" />
+_Схема таблиц базы данных_
+<img src="res/tables_2.png" />
+_Дизайн в Figma_
+<div style="display: flex">
+<img src="res/design_1.jpg" style="margin-right: 10px"/>
+<img src="res/design_2.jpg" height=300/>
+</div>
