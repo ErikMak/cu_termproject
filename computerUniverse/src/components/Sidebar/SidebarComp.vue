@@ -22,8 +22,11 @@
             class="px-4"
             id="menu-item"
             :to="item.link"
+            v-show="showLink(item.protected)"
           >
-              <v-list-item-title v-text="item.text">
+              <v-list-item-title
+                  v-text="item.text"
+              >
               </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -55,27 +58,32 @@ export default defineComponent({
         {
           text: 'Заказчики',
           icon: 'mdi-storefront',
-          link: 'customers'
+          link: 'customers',
+          protected: true
         },
         {
           text: 'Комплектующие',
           icon: 'mdi-memory',
-          link: 'parts'
+          link: 'parts',
+          protected: false
         },
         {
           text: 'Cклады',
           icon: 'mdi-warehouse',
-          link: 'warehouses'
+          link: 'warehouses',
+          protected: false
         },
         {
           text: 'Заказы',
           icon: 'mdi-package-variant-closed',
-          link: 'orders'
+          link: 'orders',
+          protected: true
         },
         {
           text: 'Номенклатура',
           icon: 'mdi-format-list-checkbox',
-          link: 'nomenclature'
+          link: 'nomenclature',
+          protected: true
         },
       ],
   }),
@@ -84,7 +92,17 @@ export default defineComponent({
     quit() {
       UserService.logout().then(() => {
         this.checkLoggedStatus()
+        this.$router.push('/')
       })
+    },
+    showLink(link_status: boolean) {
+      const status = this.getLoggedStatus
+      if(status) {
+        return true;
+      }
+      if(!status && !link_status) {
+        return true;
+      }
     }
   },
   computed: {
@@ -92,6 +110,6 @@ export default defineComponent({
   },
   created() {
     this.checkLoggedStatus()
-  }
+  },
 });
 </script>

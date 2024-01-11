@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 import {ApiLogin} from "@/const";
 
 class AuthService {
-    login(data: any) {
+    login(data: any) : Promise<void> {
         return axios.post(ApiLogin, {
             login: data.login,
             password: data.password
@@ -18,7 +18,13 @@ class AuthService {
         })
     }
 
-    logout() {
+    /*
+        NOTE!!
+
+        Удаление токена JWT из localstorage, входит в реализацию метода
+        выхода из аккаунта logout класса UserService
+     */
+    logout() : void {
         localStorage.removeItem('user');
     }
 }

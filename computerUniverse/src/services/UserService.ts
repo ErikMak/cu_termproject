@@ -2,6 +2,7 @@ import axios from '@/plugins/axios'
 import authHeader from "@/services/authHeader";
 import {ApiUser, ApiLogout} from "@/const";
 import AuthService from "@/services/AuthService";
+import {AxiosResponse} from "axios";
 
 /*
     NOTE!!
@@ -11,11 +12,11 @@ import AuthService from "@/services/AuthService";
     проверки токена JWT
  */
 class UserService {
-    loginStatus() {
+    loginStatus() : Promise<AxiosResponse<any, any>> {
         return axios.get(ApiUser, { headers: authHeader() })
     }
 
-    logout() {
+    logout() : Promise<void> {
         return axios.get(ApiLogout, { headers: authHeader() }).then(
             AuthService.logout
         )

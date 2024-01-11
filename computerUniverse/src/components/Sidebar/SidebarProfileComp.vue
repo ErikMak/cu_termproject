@@ -3,7 +3,7 @@
         lines="two"
         prepend-avatar="./img/img_avatar.jpg"
         :title=username
-        subtitle="Пользователь"
+        subtitle="Администратор"
     ></v-list-item>
 </template>
 

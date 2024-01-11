@@ -16,6 +16,7 @@
               variant="tonal"
               color="deep-orange-darken-3"
               v-bind="props"
+              v-show="getLoggedStatus"
           >
             Добавить
           </v-btn>
@@ -79,7 +80,7 @@ export default defineComponent({
     part_name: ''
   }),
   methods: {
-    ...mapActions(["uploadAllParts", "uploadPartByName"]),
+    ...mapActions(["uploadAllParts", "uploadPartByName", "checkLoggedStatus"]),
     getShowDialogFromChild(val: boolean) : void {
       this.showDialog = val
     },
@@ -88,10 +89,11 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapGetters(["getParts"])
+    ...mapGetters(["getParts", "getLoggedStatus"])
   },
   created() {
     this.uploadAllParts()
+    this.checkLoggedStatus()
   },
   watch: {
     part_name() {

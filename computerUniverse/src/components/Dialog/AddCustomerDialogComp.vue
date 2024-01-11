@@ -43,7 +43,7 @@
                 label="Телефон"
                 variant="solo-filled"
                 flat
-                hint="Максимальная длина - 12 символов"
+                hint="Максимальная длина - 20 символов"
                 clearable
                 v-model="phone"
                 :error-messages="msg.phone"
@@ -118,7 +118,7 @@ export default defineComponent({
     checkPhone() : boolean {
       let valid = false
 
-      if(this.phone != "" && this.phone.length < 12) {
+      if(this.phone != "" && this.phone.length < 20) {
         valid = true
         this.msg["phone"] = ''
       } else {
@@ -142,9 +142,9 @@ export default defineComponent({
           address: this.address,
           phone: this.phone
         }, (res: Response) => {
-          console.log(res)
+          this.hideDialog()
         }, (err: any) => {
-          alert(err)
+          alert(err.error)
         })
       }
     },

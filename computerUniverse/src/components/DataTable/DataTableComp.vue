@@ -52,6 +52,7 @@
 import { defineComponent } from 'vue';
 import EditPartDialogComponent from "@/components/Dialog/EditPartDialogComp.vue";
 import DeletePartDialogComponent from "@/components/Dialog/DeletePartDialogComp.vue";
+import {mapGetters} from "vuex";
 interface State {
   showEditDialog: boolean,
   showDeleteDialog: boolean
@@ -78,6 +79,9 @@ export default defineComponent({
     showDeleteDialog: false,
     item_val: []
   }),
+  computed: {
+      ...mapGetters(["getLoggedStatus"])
+  },
   methods: {
     getShowEditDialogFromChild(val: boolean) : void {
       this.showEditDialog = val
@@ -86,10 +90,20 @@ export default defineComponent({
       this.showDeleteDialog = val
     },
     deleteItem(item: []) {
+      if(!this.getLoggedStatus) {
+        alert('Нету доступа!')
+        return;
+      }
+
       this.item_val = item
       this.showDeleteDialog = true
     },
     editItem(item: []) {
+      if(!this.getLoggedStatus) {
+        alert('Нету доступа!')
+        return;
+      }
+
       this.item_val = item
       this.showEditDialog = true
     }
