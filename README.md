@@ -17,6 +17,7 @@ CRUD SPA приложение для работы с базой данных Pos
 * [Особенности](#features)
 * [Перед началом](#start)
 * [Запуск сервера](#run)
+* [Тестирование](#tests)
 * [Скриншоты](#shots)
 
 <a name="features"></a>
@@ -82,8 +83,17 @@ CRUD SPA приложение для работы с базой данных Pos
 # serve with hot reload at localhost:8081
 > npm run serve
 ```
+<a name="tests"></a>
+### :memo: Тестирование
+Для запуска frontend тестов в папке `computerUniverse` запустите команду:
+```bash
+> npm run test:unit
+```
+Для запуска backend тестов в папке `computerUniverseBackend` запустите команду:
+```bash
+> php artisan test
+```
 <a name="shots"></a>
-
 ### :camera: Скриншоты
 _IDEF1x модель_
 <img src="res/tables.jpg" />
