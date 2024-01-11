@@ -16,6 +16,7 @@
               variant="tonal"
               color="deep-orange-darken-3"
               v-bind="props"
+              v-show="getLoggedStatus"
           >
             Добавить
           </v-btn>
@@ -27,10 +28,8 @@
     <!-- Поисковая строка -->
     <SearchComponent label="Поиск по названию" v-on:part_name="getValueFromChild"/>
 
-
-<!--    <DataTableComponent :headers=headers :items=getParts />-->
     <!-- Таблица -->
-    <DataTableComponent :headers=headers :items=items />
+    <DataTableComponent :headers=headers :items=getParts />
   </v-container>
 </template>
 
@@ -47,7 +46,6 @@ interface State {
   headers: any,
   showDialog: boolean,
   part_name: string,
-  items: any,
 }
 export default defineComponent({
   name: 'CustomersView',
@@ -79,20 +77,10 @@ export default defineComponent({
       { title: 'Действия', key: 'actions', sortable: false },
     ],
     showDialog: false,
-    part_name: '',
-    items: [
-      {
-        model_number: 1,
-        manufacturer: 'MSI',
-        name: 'NONAME',
-        price: 100,
-        is_exist: 1,
-        category: 'Видеокарта',
-      }
-    ]
+    part_name: ''
   }),
   methods: {
-    ...mapActions(["uploadAllParts", "uploadPartByName"]),
+    ...mapActions(["uploadAllParts", "uploadPartByName", "checkLoggedStatus"]),
     getShowDialogFromChild(val: boolean) : void {
       this.showDialog = val
     },
@@ -101,10 +89,11 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapGetters(["getParts"])
+    ...mapGetters(["getParts", "getLoggedStatus"])
   },
   created() {
     this.uploadAllParts()
+    this.checkLoggedStatus()
   },
   watch: {
     part_name() {

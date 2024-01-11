@@ -6,7 +6,7 @@
         border="0"
       >
         <!-- Sidebar Profile -->
-        <SidebarProfileComponent />
+        <SidebarProfileComponent v-if="getLoggedStatus" :username="getUserLogin"/>
 
         <v-divider></v-divider>
 
@@ -22,14 +22,17 @@
             class="px-4"
             id="menu-item"
             :to="item.link"
+            v-show="showLink(item.protected)"
           >
-              <v-list-item-title v-text="item.text">
+              <v-list-item-title
+                  v-text="item.text"
+              >
               </v-list-item-title>
           </v-list-item>
         </v-list>
 
         <template v-slot:append>
-          <div class="pa-4">
+          <div class="pa-4" v-if="getLoggedStatus">
             <v-btn id="quit-btn" variant="tonal" block @click="quit">
               Выйти
             </v-btn>
@@ -42,6 +45,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SidebarProfileComponent from './SidebarProfileComp.vue'
+import UserService from "@/services/UserService";
+import {mapActions, mapGetters} from "vuex";
 
 export default defineComponent({
   name: 'SidebarComponent',
@@ -53,34 +58,58 @@ export default defineComponent({
         {
           text: 'Заказчики',
           icon: 'mdi-storefront',
-          link: 'customers'
+          link: 'customers',
+          protected: true
         },
         {
           text: 'Комплектующие',
           icon: 'mdi-memory',
-          link: 'parts'
+          link: 'parts',
+          protected: false
         },
         {
           text: 'Cклады',
           icon: 'mdi-warehouse',
-          link: 'warehouses'
+          link: 'warehouses',
+          protected: false
         },
         {
           text: 'Заказы',
           icon: 'mdi-package-variant-closed',
-          link: 'orders'
+          link: 'orders',
+          protected: true
         },
         {
           text: 'Номенклатура',
           icon: 'mdi-format-list-checkbox',
-          link: 'nomenclature'
+          link: 'nomenclature',
+          protected: true
         },
       ],
   }),
   methods: {
+    ...mapActions(["checkLoggedStatus"]),
     quit() {
-      console.log('Выход из аккаунта')
+      UserService.logout().then(() => {
+        this.checkLoggedStatus()
+        this.$router.push('/')
+      })
+    },
+    showLink(link_status: boolean) {
+      const status = this.getLoggedStatus
+      if(status) {
+        return true;
+      }
+      if(!status && !link_status) {
+        return true;
+      }
     }
-  }
+  },
+  computed: {
+    ...mapGetters(["getLoggedStatus", "getUserLogin"])
+  },
+  created() {
+    this.checkLoggedStatus()
+  },
 });
 </script>

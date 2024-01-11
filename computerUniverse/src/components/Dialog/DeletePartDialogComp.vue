@@ -49,12 +49,9 @@ export default defineComponent({
       let obj : any = this.item
 
       Api.deletePart(obj.model_number, (res: Response) => {
-
-        //           ТУТ ОСТАНОВИЛСЯ
-
-        console.log(res)
+        this.hideDialog()
       }, (err: any) => {
-        alert(err)
+        alert(err.error)
       })
     },
   }

@@ -6,62 +6,57 @@
         class="elevation-1"
         :data-headers="headers.length"
         :data-items="items.length"
+        density="compact"
       >
-
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:top>
           <!-- Диалог контейнер 1 -->
           <v-dialog
               v-model="showEditDialog"
               fullscreen
-              scrim="false"
               transition="dialog-bottom-transition"
           >
-            <!-- Диалог кнопка 1 -->
-            <template v-slot:activator="{ props }">
-              <v-btn
-                  icon="mdi-pencil"
-                  class="me-2"
-                  size="x-small"
-                  variant="plain"
-                  v-bind="props"
-              ></v-btn>
-            </template>
-
             <!-- Диалог окно -->
-            <EditPartDialogComponent v-on:showDialog="getShowEditDialogFromChild" :item=item />
+            <EditPartDialogComponent v-on:showDialog="getShowEditDialogFromChild" :item=item_val />
 
           </v-dialog>
-
           <!-- Диалог контейнер 2 -->
           <v-dialog width="400"
-              v-model="showDeleteDialog"
+                    v-model="showDeleteDialog"
           >
-            <!-- Диалог кнопка 2 -->
-            <template v-slot:activator="{ props }">
-              <v-btn
-                  icon="mdi-delete"
-                  size="x-small"
-                  variant="plain"
-                  v-bind="props"
-              ></v-btn>
-            </template>
-
             <!-- Диалог окно -->
-            <DeletePartDialogComponent v-on:showDialog="getShowDeleteDialogFromChild" :item=item />
-
+            <DeletePartDialogComponent v-on:showDialog="getShowDeleteDialogFromChild" :item=item_val />
           </v-dialog>
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <!-- Диалог кнопка 1 -->
+          <v-btn
+              icon="mdi-pencil"
+              class="me-2"
+              size="x-small"
+              variant="plain"
+              @click="editItem(item)"
+          ></v-btn>
+          <!-- Диалог кнопка 2 -->
+          <v-btn
+              icon="mdi-delete"
+              size="x-small"
+              variant="plain"
+              @click="deleteItem(item)"
+          ></v-btn>
         </template>
       </v-data-table>
     </div>
-  </template>
+</template>
   
 <script lang="ts">
 import { defineComponent } from 'vue';
 import EditPartDialogComponent from "@/components/Dialog/EditPartDialogComp.vue";
 import DeletePartDialogComponent from "@/components/Dialog/DeletePartDialogComp.vue";
+import {mapGetters} from "vuex";
 interface State {
   showEditDialog: boolean,
   showDeleteDialog: boolean
+  item_val: []
 }
 
 
@@ -81,8 +76,12 @@ export default defineComponent({
   },
   data: (): State => ({
     showEditDialog: false,
-    showDeleteDialog: false
+    showDeleteDialog: false,
+    item_val: []
   }),
+  computed: {
+      ...mapGetters(["getLoggedStatus"])
+  },
   methods: {
     getShowEditDialogFromChild(val: boolean) : void {
       this.showEditDialog = val
@@ -90,8 +89,23 @@ export default defineComponent({
     getShowDeleteDialogFromChild(val: boolean) : void {
       this.showDeleteDialog = val
     },
-    deleteLine() {
-      console.log('Удаление записи')
+    deleteItem(item: []) {
+      if(!this.getLoggedStatus) {
+        alert('Нету доступа!')
+        return;
+      }
+
+      this.item_val = item
+      this.showDeleteDialog = true
+    },
+    editItem(item: []) {
+      if(!this.getLoggedStatus) {
+        alert('Нету доступа!')
+        return;
+      }
+
+      this.item_val = item
+      this.showEditDialog = true
     }
   }
 });

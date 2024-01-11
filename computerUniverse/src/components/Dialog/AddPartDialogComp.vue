@@ -227,12 +227,9 @@ export default defineComponent({
           device_id: this.device_id,
           category: this.category
         }, (res: Response) => {
-
-          //           ТУТ ОСТАНОВИЛСЯ
-
-          console.log(res)
+          this.hideDialog()
         }, (err: any) => {
-          alert(err)
+          alert(err.error)
         })
       }
     },

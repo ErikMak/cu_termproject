@@ -12,6 +12,7 @@
                 counter="10"
                 required
                 id="login-input"
+                v-model="login"
             >
             </v-text-field>
             <!-- Доделать counter -->
@@ -21,6 +22,7 @@
                 counter="10"
                 required
                 id="pass-input"
+                v-model="password"
             >
             </v-text-field>
         </v-card-text>
@@ -49,14 +51,25 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import AuthService from "@/services/AuthService";
+import {mapActions} from "vuex";
+
+interface State {
+  login: string,
+  password: string,
+  showDialogVal: boolean
+}
 
 export default defineComponent({
     name: 'AddToTableDialogComponent',
     emits: ['showDialog'],
-    data: () => ({
-        showDialogVal: true
+    data: (): State => ({
+        showDialogVal: true,
+        login: '',
+        password: ''
     }),
     methods: {
+        ...mapActions(["checkLoggedStatus"]),
         emitToParent() : any {
             this.$emit('showDialog', this.showDialogVal)
         },
@@ -66,7 +79,13 @@ export default defineComponent({
             this.emitToParent()
         },
         auth() {
-            console.log('Авторизация')
+            AuthService.login({
+              login: this.login,
+              password: this.password
+            }).then(() => {
+              this.hideDialog()
+              this.checkLoggedStatus()
+            })
         }
     }
 });
