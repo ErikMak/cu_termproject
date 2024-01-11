@@ -2,7 +2,7 @@
     <v-list-item
         lines="two"
         prepend-avatar="./img/img_avatar.jpg"
-        title="Joe Doe"
+        :title=username
         subtitle="Администратор"
     ></v-list-item>
 </template>
@@ -12,5 +12,10 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'SidebarProfileComponent',
+    props: {
+      username: {
+        required: true
+      },
+    }
 });
 </script>

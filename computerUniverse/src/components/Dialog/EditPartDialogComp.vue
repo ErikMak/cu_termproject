@@ -1,10 +1,10 @@
 <template>
   <v-card>
     <v-toolbar dark color="grey-lighten-1">
-      <v-btn icon dark @click="hideDialog" id="hide-add-dialog">
+      <v-btn icon dark @click="hideDialog" id="hide-edit-dialog">
         <v-icon>mdi-close</v-icon>
       </v-btn>
-      <v-toolbar-title>Добавить запись</v-toolbar-title>
+      <v-toolbar-title>Изменить запись</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn
@@ -20,6 +20,7 @@
           <v-col>
             <v-text-field
                 label="Название"
+                id="name"
                 class="mb-2"
                 variant="solo-filled"
                 hint="Максимальная длина - 30 символов"
@@ -29,8 +30,10 @@
                 :error-messages="msg.name"
             >
             </v-text-field>
+
             <v-text-field
                 label="Производитель"
+                id="manufacturer"
                 class="mb-2"
                 variant="solo-filled"
                 hint="Максимальная длина - 20 символов"
@@ -42,6 +45,7 @@
             </v-text-field>
             <v-text-field
                 label="Цена"
+                id="price"
                 variant="solo-filled"
                 flat
                 clearable
@@ -51,6 +55,7 @@
             </v-text-field>
             <v-text-field
                 label="Гарантия"
+                id="warranty"
                 variant="solo-filled"
                 hint="Максимальная длина - 18 символов"
                 flat
@@ -61,6 +66,7 @@
             </v-text-field>
             <v-text-field
                 label="Device ID"
+                id="device_id"
                 variant="solo-filled"
                 flat
                 clearable
@@ -70,6 +76,7 @@
             </v-text-field>
             <v-text-field
                 label="Категория"
+                id="category"
                 variant="solo-filled"
                 flat
                 hint="Максимальная длина - 20 символов"
@@ -101,8 +108,14 @@ interface State {
 }
 
 export default defineComponent({
-  name: 'AddPartDialogComponent',
+  name: 'EditPartDialogComponent',
   emits: ['showDialog'],
+  props: {
+    item: {
+      required: true,
+      type: Object
+    }
+  },
   data: (): State => ({
     showDialogVal: true,
     name: '',
@@ -142,6 +155,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkManufacturer() : boolean {
       let valid = false
 
@@ -154,6 +168,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkPrice() : boolean {
       let valid = false
 
@@ -166,6 +181,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkWarranty() : boolean {
       let valid = false
 
@@ -178,6 +194,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkDeviceID() : boolean {
       let valid = false
 
@@ -190,6 +207,7 @@ export default defineComponent({
 
       return valid
     },
+
     checkCategory() : boolean {
       let valid = false
 
@@ -202,6 +220,7 @@ export default defineComponent({
 
       return valid
     },
+
 
     saveData() {
       let isNameValid = this.checkName(),
@@ -219,7 +238,10 @@ export default defineComponent({
           isCategoryValid
 
       if(isFormValid) {
-        Api.addPart({
+        let obj : any = this.item
+
+
+        Api.updatePart(obj.model_number, {
           name: this.name,
           manufacturer: this.manufacturer,
           price: this.price,
@@ -233,6 +255,15 @@ export default defineComponent({
         })
       }
     },
+  },
+  created() {
+    let obj : any = this.item
+    this.name = obj.name
+    this.manufacturer = obj.manufacturer
+    this.price = obj.price
+    this.warranty = obj.warranty
+    this.device_id = obj.device_id
+    this.category = obj.category
   }
 });
 </script>

@@ -1,6 +1,8 @@
 <template>
     <div class="px-4 pt-3 pb-5">
     <v-text-field
+        v-model="value"
+        @keyup="emitToParent"
         density="compact"
         variant="solo"
         :label="label"
@@ -9,7 +11,6 @@
         hide-details
         flat
         bg-color="grey-lighten-4"
-        @click:append-inner="search"
     ></v-text-field>
     </div>
   </template>
@@ -23,12 +24,16 @@ export default defineComponent({
       label: {
         type: String,
         required: true
-      }
+      },
     },
+    data: () => ({
+      value: ''
+    }),
+    emits: ['part_name'],
     methods: {
-        search() : void {
-            console.log('Поиск')
-        }
+        emitToParent() : any {
+          this.$emit('part_name', this.value)
+        },
     }
 });
 </script>

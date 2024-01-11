@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import WelcomeView from "@/views/WelcomeView.vue";
+import guard from "@/router/middleware";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,6 +16,9 @@ const routes: Array<RouteRecordRaw> = [
       {
       path: '/customers',
       name: 'customers',
+        beforeEnter: (to, from, next) => {
+          guard(next)
+        },
       component: () => import('../views/CustomersView.vue'),
     },
     {
@@ -30,34 +34,20 @@ const routes: Array<RouteRecordRaw> = [
     {
       path: '/orders',
       name: 'orders',
+      beforeEnter: (to, from, next) => {
+        guard(next)
+      },
       component: () => import('../views/OrdersView.vue'),
     },
     {
       path: '/nomenclature',
       name: 'nomenclature',
+      beforeEnter: (to, from, next) => {
+        guard(next)
+      },
       component: () => import('../views/NomenclatureView.vue'),
     },]
-  },
-  // {
-  //   path: '/parts',
-  //   name: 'parts',
-  //   component: () => import('../views/ProfileView.vue'),
-  // },
-  // {
-  //   path: '/warehouses',
-  //   name: 'warehouses',
-  //   component: () => import('../views/ProfileView.vue'),
-  // },
-  // {
-  //   path: '/orders',
-  //   name: 'orders',
-  //   component: () => import('../views/ProfileView.vue'),
-  // },
-  // {
-  //   path: '/nomenclature',
-  //   name: 'nomenclature',
-  //   component: () => import('../views/ProfileView.vue'),
-  // },
+  }
 ]
 
 const router = createRouter({
