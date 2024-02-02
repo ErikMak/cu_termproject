@@ -22,7 +22,7 @@ jobs:
         cache: npm 
 
     - name: Установка зависимостей
-      run: npm i
+      run: npm i --legacy-peer-deps
 
     - name: Сборка проекта
       run: npm run build
@@ -43,7 +43,7 @@ jobs:
         cache: npm 
 
     - name: Установка зависимостей
-      run: npm i
+      run: npm i --legacy-peer-deps
 
     - name: Запуск тестов
       run: npm run test:unit
