@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         cache-dependency-path: './computerUniverse/package-lock.json'
-        node-version: 9.1.x
+        node-version: 20.1.x
         cache: npm 
 
     - name: Установка зависимостей
@@ -39,7 +39,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         cache-dependency-path: './computerUniverse/package-lock.json'
-        node-version: 9.1.x
+        node-version: 20.1.x
         cache: npm 
 
     - name: Установка зависимостей
