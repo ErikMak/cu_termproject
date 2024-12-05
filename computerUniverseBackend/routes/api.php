@@ -57,7 +57,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function() {
             // Данные пользователя
             Route::get('user', 'AuthController@user');
             // Выход из аккаунта
-            Route::post('logout', 'AuthController@logout');
+            Route::get('logout', 'AuthController@logout');
         });
     });
 });

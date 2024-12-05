@@ -112,7 +112,7 @@ class PartController extends BaseContoller
             $model_number,
         ));
 
-        return response('Компонент успешно удален!', 204);
+        return $this->sendResponse('Компонент успешно удален!');
     }
 
     public function find(PartFilter $filter) {

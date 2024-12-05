@@ -26,7 +26,7 @@ class BaseContoller extends Contoller {
 
         return response()->json($response, 200);
     }
-    public function sendError($msg, $code = 404) {
+    public function sendError($msg, $code = 200) {
         $response = [
             'status' => false,
             'error' => $msg

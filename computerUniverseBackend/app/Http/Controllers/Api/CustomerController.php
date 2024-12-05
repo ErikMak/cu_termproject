@@ -7,6 +7,7 @@ use App\Http\Resources\Customer\CustomerOrderManagerResource;
 use App\Http\Resources\Customer\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends BaseContoller
 {
@@ -32,9 +33,13 @@ class CustomerController extends BaseContoller
     {
         $validated = $request->validated();
 
-        $customer = Customer::create($validated);
+        DB::select('call insert_customer(?, ?, ?)', array(
+            $validated['customer'],
+            $validated['address'],
+            $validated['phone']
+        ));
 
-        return $this->sendResponse(new CustomerResource($customer), 'Заказчик успешно добавлен!');
+        return $this->sendResponse($validated, 'Заказчик успешно добавлен!');
     }
 
     /**

@@ -26,7 +26,7 @@ class AuthController extends BaseContoller
             return $this->sendOK()->header('Authorization', $token);
         }
 
-        return $this->sendError('Отказ входа!', 401);
+        return $this->sendError('Отказ входа!');
     }
 
     public function logout() {
